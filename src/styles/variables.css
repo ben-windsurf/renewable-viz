@@ -1,0 +1,115 @@
+/**
+ * CSS Custom Properties for Renewable Energy Dashboard
+ * Following MST-75 design system
+ */
+
+:root {
+  /* Core Color Palette */
+  --color-primary: #4a98d2;
+  --color-secondary: #92c362;
+  --color-tertiary: #292929;
+  
+  /* Energy Type Colors */
+  --color-solar: #92c362;
+  --color-wind: #4a98d2;
+  --color-hydro: #6bb6ff;
+  --color-hydro-pumped: #5aa3e6;
+  --color-geothermal: #ff8c42;
+  --color-nuclear: #e74c3c;
+  --color-natural-gas: #f39c12;
+  --color-coal: #34495e;
+  --color-biomass: #27ae60;
+  --color-battery: #9b59b6;
+  --color-crude-oil: #8b4513;
+  --color-other: #95a5a6;
+  
+  /* UI Colors */
+  --color-background: #ffffff;
+  --color-surface: #f8f9fa;
+  --color-border: #e9ecef;
+  --color-text-primary: #292929;
+  --color-text-secondary: #6c757d;
+  --color-text-muted: #adb5bd;
+  
+  /* State Colors */
+  --color-success: #28a745;
+  --color-warning: #ffc107;
+  --color-error: #dc3545;
+  --color-info: #17a2b8;
+  
+  /* Map Colors */
+  --color-map-background: #f8f9fa;
+  --color-map-water: #a8d8ea;
+  --color-map-land: #ffffff;
+  --color-map-border: #dee2e6;
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-xxl: 3rem;
+  
+  /* Typography */
+  --font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-mono: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-xxl: 1.5rem;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  
+  /* Transitions */
+  --transition-fast: 150ms ease-in-out;
+  --transition-base: 250ms ease-in-out;
+  --transition-slow: 350ms ease-in-out;
+  
+  /* Z-index */
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #1a1a1a;
+    --color-surface: #2d2d2d;
+    --color-border: #404040;
+    --color-text-primary: #ffffff;
+    --color-text-secondary: #b0b0b0;
+    --color-text-muted: #808080;
+    --color-map-background: #2d2d2d;
+    --color-map-land: #1a1a1a;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 0ms;
+    --transition-base: 0ms;
+    --transition-slow: 0ms;
+  }
+}

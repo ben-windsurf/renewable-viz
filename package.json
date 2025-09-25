@@ -1,0 +1,23 @@
+{
+  "name": "renewable-energy-viz",
+  "version": "1.0.0",
+  "description": "Interactive renewable energy power plant visualization",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite --config config/vite.config.ts",
+    "build": "tsc --project config/tsconfig.json && vite build --config config/vite.config.ts",
+    "preview": "vite preview --config config/vite.config.ts",
+    "serve": "python3 -m http.server 8000",
+    "data-export": "python3 scripts/export_data.py"
+  },
+  "dependencies": {
+    "mapbox-gl": "^3.0.1",
+    "@types/mapbox-gl": "^3.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2",
+    "vite": "^5.0.0",
+    "@types/node": "^20.8.0"
+  },
+  "type": "module"
+}

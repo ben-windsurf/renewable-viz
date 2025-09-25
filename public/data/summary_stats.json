@@ -1,0 +1,27 @@
+{
+  "total_plants": 135,
+  "energy_types": {
+    "Battery Storage": 135
+  },
+  "states": {
+    "California": 42,
+    "Texas": 20,
+    "New York": 7,
+    "Ohio": 6,
+    "Massachusetts": 6,
+    "Illinois": 5,
+    "New Jersey": 5,
+    "Arizona": 4,
+    "Indiana": 4,
+    "Minnesota": 4
+  },
+  "capacity_stats": {
+    "total_mw": 1551.9,
+    "renewable_mw": 25.9,
+    "avg_capacity": 11.495555555555557,
+    "max_capacity": 250.0
+  },
+  "data_periods": {
+    "202108": 135
+  }
+}

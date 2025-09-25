@@ -1,0 +1,51 @@
+{
+  "total_plants": 4729,
+  "renewable_plants": 3066,
+  "energy_types": {
+    "Wind": 1000,
+    "Hydroelectric": 1000,
+    "Natural Gas": 1000,
+    "Solar": 999,
+    "Battery Storage": 410,
+    "Coal": 198,
+    "Geothermal": 67,
+    "Nuclear": 55
+  },
+  "states": {
+    "": 4594,
+    "California": 42,
+    "Texas": 20,
+    "New York": 7,
+    "Ohio": 6,
+    "Massachusetts": 6,
+    "Illinois": 5,
+    "New Jersey": 5,
+    "Minnesota": 4,
+    "Indiana": 4,
+    "Arizona": 4,
+    "North Carolina": 3,
+    "Maine": 3,
+    "Alaska": 3,
+    "Washington": 2
+  },
+  "capacity_stats": {
+    "total_mw": 768417.5,
+    "renewable_mw": 187017.39999999997,
+    "avg_capacity": 162.49048424614082,
+    "max_capacity": 7079.0
+  },
+  "data_periods": {
+    "202502": 4594,
+    "202108": 135
+  },
+  "by_energy_type": {
+    "Battery Storage": 410,
+    "Solar": 999,
+    "Wind": 1000,
+    "Hydroelectric": 1000,
+    "Nuclear": 55,
+    "Natural Gas": 1000,
+    "Coal": 198,
+    "Geothermal": 67
+  }
+}

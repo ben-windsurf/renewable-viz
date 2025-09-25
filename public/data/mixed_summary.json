@@ -1,0 +1,22 @@
+{
+  "total_plants": 1100,
+  "energy_types": {
+    "Solar": 200,
+    "Wind": 200,
+    "Hydroelectric": 200,
+    "Nuclear": 50,
+    "Natural Gas": 200,
+    "Coal": 100,
+    "Geothermal": 50,
+    "Battery Storage": 100
+  },
+  "states": {
+    "": 1100
+  },
+  "capacity_stats": {
+    "total_mw": 321301.3,
+    "renewable_mw": 35152.0,
+    "avg_capacity": 292.09209090909087,
+    "max_capacity": 4530.0
+  }
+}

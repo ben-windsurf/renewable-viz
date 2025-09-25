@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>US Power Plants Visualization</title>
+    
+    <!-- Mapbox GL CSS -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet">
+    
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="./src/styles/global.css">
+    
+    <style>
+        /* Layout styles */
+        .app-container {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .sidebar {
+            width: 350px;
+            background-color: var(--color-surface);
+            border-right: 1px solid var(--color-border);
+            overflow-y: auto;
+            padding: var(--spacing-md);
+        }
+        
+        .map-container {
+            flex: 1;
+            position: relative;
+        }
+        
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .header {
+            background-color: var(--color-primary);
+            color: white;
+            padding: var(--spacing-md);
+            margin: calc(-1 * var(--spacing-md)) calc(-1 * var(--spacing-md)) var(--spacing-md) calc(-1 * var(--spacing-md));
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-semibold);
+        }
+        
+        .header p {
+            margin: var(--spacing-xs) 0 0 0;
+            opacity: 0.9;
+            font-size: var(--font-size-sm);
+        }
+        
+        /* Energy type indicator */
+        .energy-type-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: var(--spacing-xs);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .energy-type-check {
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .renewable-badge {
+            background-color: var(--color-secondary);
+            color: white;
+            font-size: 10px;
+            padding: 2px 4px;
+            border-radius: 2px;
+            margin-left: var(--spacing-xs);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        /* Statistics panel */
+        .stats-panel {
+            position: absolute;
+            top: var(--spacing-md);
+            right: var(--spacing-md);
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-md);
+            box-shadow: var(--shadow-lg);
+            min-width: 200px;
+            z-index: 1000;
+        }
+        
+        .stats-panel h4 {
+            margin: 0 0 var(--spacing-sm) 0;
+            color: var(--color-text-primary);
+        }
+        
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--spacing-xs);
+            font-size: var(--font-size-sm);
+        }
+        
+        .stat-label {
+            color: var(--color-text-secondary);
+        }
+        
+        .stat-value {
+            font-weight: var(--font-weight-medium);
+            color: var(--color-text-primary);
+        }
+        
+        /* Loading indicator */
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+        
+        .loading-spinner {
+            border: 3px solid var(--color-border);
+            border-top: 3px solid var(--color-primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .app-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: 300px;
+                border-right: none;
+                border-bottom: 1px solid var(--color-border);
+            }
+            
+            .stats-panel {
+                position: static;
+                margin: var(--spacing-md);
+                margin-top: 0;
+            }
+        }
+        
+        /* Map controls */
+        .map-controls {
+            position: absolute;
+            top: var(--spacing-md);
+            left: var(--spacing-md);
+            z-index: 1000;
+        }
+        
+        .map-controls .btn {
+            margin-right: var(--spacing-xs);
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        /* Popup styles */
+        .power-plant-popup {
+            font-family: var(--font-family-base);
+            font-size: var(--font-size-sm);
+            line-height: 1.4;
+            max-width: 300px;
+        }
+        
+        .power-plant-popup h3 {
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-semibold);
+        }
+        
+        /* Error message */
+        .error-message {
+            background-color: var(--color-error);
+            color: white;
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-md);
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar with filters -->
+        <div class="sidebar">
+            <div class="header">
+                <h1>Power Plants</h1>
+                <p>Interactive visualization of US energy infrastructure</p>
+            </div>
+            
+            <div id="error-container"></div>
+            <div id="filter-controls"></div>
+        </div>
+        
+        <!-- Map container -->
+        <div class="map-container">
+            <div id="loading-overlay" class="loading-overlay">
+                <div class="loading-spinner"></div>
+            </div>
+            
+            <div class="map-controls">
+                <button type="button" class="btn btn-primary btn-sm" id="fit-to-data">
+                    Fit to Data
+                </button>
+                <button type="button" class="btn btn-outline btn-sm" id="export-image">
+                    Export Image
+                </button>
+            </div>
+            
+            <div class="stats-panel" id="stats-panel">
+                <h4>Statistics</h4>
+                <div id="stats-content">
+                    <div class="stat-item">
+                        <span class="stat-label">Loading...</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <!-- Mapbox GL JS -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
+    
+    <!-- Main application -->
+    <script type="module" src="./src/main.ts"></script>
+</body>
+</html>
